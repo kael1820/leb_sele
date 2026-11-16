@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>AI+PBL 师生双向选择系统 · 软件工程学院</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=20261116g" />
+</head>
+<body>
+  <!-- Decorative background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow--1"></div>
+  <div class="bg-glow bg-glow--2"></div>
+
+  <!-- App shell -->
+  <div class="app">
+    <!-- Top bar -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand__logo">
+          <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
+            <path d="M6 8 L16 4 L26 8 L26 20 L16 28 L6 20 Z" stroke="url(#g1)" stroke-width="1.5"/>
+            <path d="M6 8 L16 12 L26 8" stroke="#22d3ee" stroke-width="1.5"/>
+            <path d="M16 12 L16 28" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <circle cx="16" cy="12" r="2" fill="#fbbf24"/>
+            <defs><linearGradient id="g1" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#22d3ee"/><stop offset="1" stop-color="#34d399"/></linearGradient></defs>
+          </svg>
+        </div>
+        <div class="brand__text">
+          <div class="brand__title">AI+PBL 双向选择</div>
+          <div class="brand__sub">软件工程学院 · 实训导师分配平台</div>
+        </div>
+      </div>
+
+      <nav class="role-switch" id="roleSwitch">
+        <button class="role-btn is-active" data-role="student">
+          <span class="role-ic">◈</span> 学生端
+        </button>
+        <button class="role-btn" data-role="teacher">
+          <span class="role-ic">◇</span> 教师端
+        </button>
+        <button class="role-btn" data-role="admin">
+          <span class="role-ic">⬡</span> 管理端
+        </button>
+      </nav>
+
+      <div class="topbar__right">
+        <div class="round-chip" id="roundChip">
+          <span class="round-chip__label">当前阶段</span>
+          <span class="round-chip__value" id="roundValue">加载中…</span>
+        </div>
+        <div class="user-chip">
+          <div class="avatar" id="userAvatar">—</div>
+          <div class="user-meta">
+            <div class="user-name" id="userName">未登录</div>
+            <div class="user-id" id="userId">—</div>
+          </div>
+        </div>
+        <button class="btn btn--ghost btn--sm" id="logoutBtn" type="button">退出登录</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar"></aside>
+
+      <!-- Main content -->
+      <main class="main" id="main">
+        <!-- views injected here -->
+      </main>
+    </div>
+  </div>
+
+  <!-- 登录门禁 -->
+  <div class="login-gate" id="loginGate">
+    <div class="login-gate__panel">
+      <div class="login-gate__brand">
+        <div class="brand__logo">
+          <svg viewBox="0 0 32 32" width="30" height="30" fill="none">
+            <path d="M6 8 L16 4 L26 8 L26 20 L16 28 L6 20 Z" stroke="url(#lg1)" stroke-width="1.5"/>
+            <path d="M6 8 L16 12 L26 8" stroke="#22d3ee" stroke-width="1.5"/>
+            <path d="M16 12 L16 28" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <circle cx="16" cy="12" r="2" fill="#fbbf24"/>
+            <defs><linearGradient id="lg1" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#22d3ee"/><stop offset="1" stop-color="#34d399"/></linearGradient></defs>
+          </svg>
+        </div>
+        <div>
+          <div class="login-gate__title">AI+PBL 双向选择</div>
+          <div class="login-gate__sub">软件工程学院 · 实训导师分配平台</div>
+        </div>
+      </div>
+
+      <form class="login-gate__form" id="loginForm" autocomplete="on">
+        <label class="login-gate__label" for="loginUsername">用户名</label>
+        <input class="input" id="loginUsername" name="username" placeholder="如 S-A01 / T-SD01 / admin" autocomplete="username" />
+        <label class="login-gate__label mt-sm" for="loginPassword">密码</label>
+        <input class="input" id="loginPassword" name="password" type="password" placeholder="演示密码 123456" autocomplete="current-password" />
+        <div class="login-gate__error" id="loginError"></div>
+        <button class="btn btn--primary btn--block" id="loginBtn" type="submit">登 录</button>
+      </form>
+
+      <div class="login-gate__demo">
+        <div class="login-gate__demo-label">演示账号快捷登录（密码均为 123456）</div>
+        <div class="login-gate__demo-btns">
+          <button class="btn btn--ghost btn--sm demo-login" type="button" data-username="S-A01">学生 · S-A01</button>
+          <button class="btn btn--ghost btn--sm demo-login" type="button" data-username="T-SD01">教师 · T-SD01</button>
+          <button class="btn btn--ghost btn--sm demo-login" type="button" data-username="admin">管理员 · admin</button>
+        </div>
+      </div>
+
+      <div class="login-gate__hint">登录后仅显示当前角色入口，如需切换角色请退出登录后重新登录。</div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Modals -->
+  <div class="modal" id="modal"></div>
+
+  <script src="js/api.js?v=20261116g"></script>
+  <script src="js/data.js?v=20261116g"></script>
+  <script src="js/app.js?v=20261116g"></script>
+  <script src="js/student.js?v=20261116g"></script>
+  <script src="js/teacher.js?v=20261116g"></script>
+  <script src="js/admin.js?v=20261116g"></script>
+</body>
+</html>
